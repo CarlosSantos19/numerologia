@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0b1a">
+  <meta name="description" content="Calcula tu carta numerológica, tu compatibilidad y tus ciclos personales.">
+  <title>Numerología</title>
+  <script>
+    // Aplica el tema guardado antes de pintar para evitar parpadeos.
+    try {
+      const t = localStorage.getItem("numerologia.tema");
+      if (t) document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="./">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Numerología
+    </a>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="carta" role="tab">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+        <span>Mi carta</span>
+      </button>
+      <button class="tab" data-tab="calendario" role="tab">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v2h6V2h2v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2zM5 9v10h14V9zm2 2h3v3H7z"/></svg>
+        <span>Calendario</span>
+      </button>
+      <button class="tab" data-tab="compatibilidad" role="tab">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.2 5 6.7 5c2.1 0 3.6 1.2 5.3 3 1.7-1.8 3.2-3 5.3-3 3.5 0 5.5 3.6 4.2 6.8C19.5 16.4 12 21 12 21z"/></svg>
+        <span>Compatibilidad</span>
+      </button>
+      <button class="tab" data-tab="historial" role="tab">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-2a7 7 0 1 1-2.05-4.95L14 10h7V3l-2.64 2.64A8.96 8.96 0 0 0 12 3zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z"/></svg>
+        <span>Historial</span>
+      </button>
+    </nav>
+    <button id="theme-toggle" class="icon-button" type="button" aria-label="Cambiar tema">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- Carta personal -->
+    <section id="panel-carta" class="panel">
+      <div class="hero">
+        <p class="eyebrow">Numerología pitagórica</p>
+        <h1>Lo que tus números <em>dicen de ti</em></h1>
+        <p class="lead">Tu nombre y tu fecha de nacimiento guardan un código. Descúbrelo en segundos.</p>
+      </div>
+
+      <form id="form" class="glass form">
+        <label class="field">
+          <span>Nombre completo de nacimiento</span>
+          <input id="name" type="text" placeholder="Ej.: María José Pérez Gómez" required autocomplete="name">
+        </label>
+        <label class="field">
+          <span>Fecha de nacimiento</span>
+          <input id="birth" type="date" required>
+        </label>
+        <button type="submit" class="primary">Revelar mi carta</button>
+        <p id="error" class="error" hidden></p>
+      </form>
+
+      <div id="results" hidden>
+        <div id="featured"></div>
+
+        <h2 class="section-title">Números principales</h2>
+        <div id="numbers" class="grid"></div>
+
+        <div id="karmic"></div>
+
+        <h2 class="section-title">Tus ciclos de hoy</h2>
+        <div id="cycles" class="grid grid-3"></div>
+        <p class="more-link"><button type="button" class="ghost" data-goto="calendario">Ver mi año y mi calendario día a día →</button></p>
+
+        <h2 class="section-title">Pináculos <small>Las cuatro grandes etapas de tu vida</small></h2>
+        <ol id="pinnacles" class="timeline"></ol>
+
+        <h2 class="section-title">Desafíos <small>Las lecciones que se repiten</small></h2>
+        <div id="challenges" class="glass list"></div>
+
+        <details class="glass breakdown">
+          <summary>Cómo se ha calculado</summary>
+          <div id="breakdown"></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Calendario -->
+    <section id="panel-calendario" class="panel" hidden>
+      <div class="hero hero-small">
+        <p class="eyebrow">Calendario numerológico</p>
+        <h1>Tu energía <em>año a año, día a día</em></h1>
+        <p class="lead">Cada año y cada día tienen un número personal. Descubre qué hacer, qué esperar y qué evitar.</p>
+      </div>
+
+      <div id="cal-empty" class="glass empty-state" hidden>
+        <p>Para ver tu calendario necesitas calcular primero tu carta.</p>
+        <button type="button" class="primary" data-goto="carta">Calcular mi carta</button>
+      </div>
+
+      <div id="cal-content" hidden>
+        <label class="field cal-person">
+          <span>Calendario de</span>
+          <select id="cal-person"></select>
+        </label>
+
+        <article id="year-card" class="glass year-card"></article>
+
+        <h2 class="section-title" id="cal-section">Tu calendario <small>Toca un día para ver su guía</small></h2>
+        <div class="cal-layout">
+          <div class="glass calendar">
+            <div class="cal-header">
+              <button type="button" class="icon-button" id="cal-prev" aria-label="Mes anterior">‹</button>
+              <h2 id="cal-title"></h2>
+              <button type="button" class="icon-button" id="cal-next" aria-label="Mes siguiente">›</button>
+            </div>
+            <p id="cal-month-info" class="hint cal-month-info"></p>
+            <div class="cal-weekdays" aria-hidden="true">
+              <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+            </div>
+            <div id="cal-grid" class="cal-grid"></div>
+            <button type="button" class="ghost cal-today" id="cal-today">Ir a hoy</button>
+          </div>
+
+          <article id="day-detail" class="glass day-detail" aria-live="polite"></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compatibilidad -->
+    <section id="panel-compatibilidad" class="panel" hidden>
+      <div class="hero hero-small">
+        <p class="eyebrow">Compatibilidad</p>
+        <h1>¿Cómo vibran <em>juntos</em>?</h1>
+        <p class="lead">Compara los números de dos personas: pareja, amistad, familia o trabajo.</p>
+      </div>
+      <form id="compat-form" class="glass form form-wide">
+        <div class="pair">
+          <fieldset>
+            <legend>Persona 1</legend>
+            <select class="from-history" data-target="a" aria-label="Elegir del historial"></select>
+            <label class="field"><span>Nombre completo</span><input id="name-a" type="text" required></label>
+            <label class="field"><span>Fecha de nacimiento</span><input id="birth-a" type="date" required></label>
+          </fieldset>
+          <fieldset>
+            <legend>Persona 2</legend>
+            <select class="from-history" data-target="b" aria-label="Elegir del historial"></select>
+            <label class="field"><span>Nombre completo</span><input id="name-b" type="text" required></label>
+            <label class="field"><span>Fecha de nacimiento</span><input id="birth-b" type="date" required></label>
+          </fieldset>
+        </div>
+        <button type="submit" class="primary">Comparar</button>
+        <p id="compat-error" class="error" hidden></p>
+      </form>
+      <div id="compat-results" hidden></div>
+    </section>
+
+    <!-- Historial -->
+    <section id="panel-historial" class="panel" hidden>
+      <div class="hero hero-small">
+        <p class="eyebrow">Historial</p>
+        <h1>Tus <em>cartas</em></h1>
+        <p class="lead">Se guardan solo en este dispositivo.</p>
+      </div>
+      <div class="glass history-card">
+        <ul id="history" class="history"></ul>
+        <button id="clear-history" class="ghost" type="button">Borrar todo el historial</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Sistema pitagórico · Números maestros 11, 22 y 33 · Solo con fines de entretenimiento
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="sky.js"></script>
+  <script src="numerology.js"></script>
+  <script src="meanings.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
