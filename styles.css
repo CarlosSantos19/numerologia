@@ -1,88 +1,106 @@
-/* ---------- Tokens ---------- */
+/* ---------- Tokens (estilo tarot: medianoche y oro envejecido; pergamino en modo claro) ---------- */
 :root {
-  --bg: #f6f3fd;
-  --bg-glow-1: rgba(167, 139, 250, 0.35);
-  --bg-glow-2: rgba(240, 171, 252, 0.28);
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-strong: #ffffff;
-  --border: rgba(76, 52, 160, 0.12);
-  --text: #1d1736;
-  --muted: #6a6386;
-  --accent: #6d3fe0;
-  --accent-2: #c03fd8;
-  --accent-soft: rgba(109, 63, 224, 0.1);
-  --gold: #e3a43a;
-  --gold-2: #c27a12;
-  --good: #1f9d6b;
-  --mid: #d18f12;
-  --low: #d4513f;
-  --shadow: 0 10px 40px -18px rgba(60, 30, 140, 0.35);
+  --bg: #f3ead8;
+  --bg-glow-1: rgba(201, 150, 60, 0.22);
+  --bg-glow-2: rgba(122, 38, 56, 0.12);
+  --surface: rgba(255, 250, 240, 0.78);
+  --surface-strong: #fffaf0;
+  --border: rgba(120, 84, 30, 0.22);
+  --frame: rgba(138, 90, 18, 0.3);
+  --text: #2a1d12;
+  --muted: #6d5b44;
+  --accent: #8a5a12;
+  --accent-2: #7a2638;
+  --accent-soft: rgba(138, 90, 18, 0.1);
+  --on-accent: #fff8ea;
+  --gold: #b8862b;
+  --gold-2: #8a5a12;
+  --wine: #7a2638;
+  --card-bg-1: #fbf3e2;
+  --card-bg-2: #ecdcba;
+  --card-ink: #6b4510;
+  --good: #2f7d4f;
+  --mid: #a8700f;
+  --low: #a8402f;
+  --shadow: 0 10px 40px -18px rgba(90, 60, 20, 0.35);
   --stars: 0;
-  --star: #6d3fe0;
-  --stars-opacity: 0.3;
-  --line: rgba(109, 63, 224, 0.22);
-  --wheel: #6d3fe0;
-  --wheel-opacity: 0.09;
-  --moon: rgba(109, 63, 224, 0.3);
-  --radius: 20px;
+  --star: #8a5a12;
+  --stars-opacity: 0.35;
+  --line: rgba(138, 90, 18, 0.25);
+  --wheel: #8a5a12;
+  --wheel-opacity: 0.1;
+  --moon: rgba(138, 90, 18, 0.35);
+  --radius: 16px;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b0918;
-    --bg-glow-1: rgba(124, 77, 255, 0.28);
-    --bg-glow-2: rgba(217, 70, 239, 0.18);
-    --surface: rgba(255, 255, 255, 0.045);
-    --surface-strong: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.09);
-    --text: #f1ecff;
-    --muted: #a49dc6;
-    --accent: #a98bff;
-    --accent-2: #f08cf5;
-    --accent-soft: rgba(169, 139, 255, 0.12);
-    --gold: #f7cf74;
-    --gold-2: #e39a32;
-    --good: #4fd19a;
-    --mid: #f0bd4f;
-    --low: #f2786a;
-    --shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.8);
+    --bg: #0b0a14;
+    --bg-glow-1: rgba(122, 38, 70, 0.32);
+    --bg-glow-2: rgba(40, 52, 130, 0.32);
+    --surface: rgba(255, 244, 220, 0.04);
+    --surface-strong: rgba(255, 244, 220, 0.07);
+    --border: rgba(217, 180, 90, 0.2);
+    --frame: rgba(217, 180, 90, 0.28);
+    --text: #f1e8d4;
+    --muted: #b5a98e;
+    --accent: #d9b45a;
+    --accent-2: #c07a3a;
+    --accent-soft: rgba(217, 180, 90, 0.12);
+    --on-accent: #1b1405;
+    --gold: #e8c872;
+    --gold-2: #b8862b;
+    --wine: #7a2646;
+    --card-bg-1: #261b40;
+    --card-bg-2: #110c21;
+    --card-ink: #e8c872;
+    --good: #6cc98f;
+    --mid: #e6b955;
+    --low: #e57a68;
+    --shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.85);
     --stars: 1;
-  --star: #ffffff;
-  --stars-opacity: 0.9;
-  --line: rgba(200, 186, 255, 0.28);
-  --wheel: #cbbcff;
-  --wheel-opacity: 0.14;
-  --moon: #f6e7c1;
+    --star: #fff3d6;
+    --stars-opacity: 0.85;
+    --line: rgba(232, 200, 114, 0.3);
+    --wheel: #d9b45a;
+    --wheel-opacity: 0.13;
+    --moon: #f3e3b8;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0b0918;
-  --bg-glow-1: rgba(124, 77, 255, 0.28);
-  --bg-glow-2: rgba(217, 70, 239, 0.18);
-  --surface: rgba(255, 255, 255, 0.045);
-  --surface-strong: rgba(255, 255, 255, 0.08);
-  --border: rgba(255, 255, 255, 0.09);
-  --text: #f1ecff;
-  --muted: #a49dc6;
-  --accent: #a98bff;
-  --accent-2: #f08cf5;
-  --accent-soft: rgba(169, 139, 255, 0.12);
-  --gold: #f7cf74;
-  --gold-2: #e39a32;
-  --good: #4fd19a;
-  --mid: #f0bd4f;
-  --low: #f2786a;
-  --shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.8);
+  --bg: #0b0a14;
+  --bg-glow-1: rgba(122, 38, 70, 0.32);
+  --bg-glow-2: rgba(40, 52, 130, 0.32);
+  --surface: rgba(255, 244, 220, 0.04);
+  --surface-strong: rgba(255, 244, 220, 0.07);
+  --border: rgba(217, 180, 90, 0.2);
+  --frame: rgba(217, 180, 90, 0.28);
+  --text: #f1e8d4;
+  --muted: #b5a98e;
+  --accent: #d9b45a;
+  --accent-2: #c07a3a;
+  --accent-soft: rgba(217, 180, 90, 0.12);
+  --on-accent: #1b1405;
+  --gold: #e8c872;
+  --gold-2: #b8862b;
+  --wine: #7a2646;
+  --card-bg-1: #261b40;
+  --card-bg-2: #110c21;
+  --card-ink: #e8c872;
+  --good: #6cc98f;
+  --mid: #e6b955;
+  --low: #e57a68;
+  --shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.85);
   --stars: 1;
-  --star: #ffffff;
-  --stars-opacity: 0.9;
-  --line: rgba(200, 186, 255, 0.28);
-  --wheel: #cbbcff;
-  --wheel-opacity: 0.14;
-  --moon: #f6e7c1;
+  --star: #fff3d6;
+  --stars-opacity: 0.85;
+  --line: rgba(232, 200, 114, 0.3);
+  --wheel: #d9b45a;
+  --wheel-opacity: 0.13;
+  --moon: #f3e3b8;
   color-scheme: dark;
 }
 
@@ -95,14 +113,15 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, .serif { font-family: "Fraunces", Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
+h1, h2, h3, h4, .serif { font-family: "Cinzel", Georgia, serif; font-weight: 600; letter-spacing: 0.02em; }
 
 /* Fondo astrológico: nebulosa, estrellas, constelaciones, rueda zodiacal y luna (lo genera sky.js) */
 .sky {
@@ -210,7 +229,7 @@ main, footer { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Cinzel", Georgia, serif;
   font-weight: 700;
   font-size: 1.15rem;
   color: var(--text);
@@ -244,14 +263,14 @@ main, footer { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
   border-radius: 999px;
   background: transparent;
   color: var(--muted);
-  font: 500 0.92rem/1 "Inter", system-ui, sans-serif;
+  font: 600 1rem/1 "EB Garamond", Georgia, serif;
   cursor: pointer;
   transition: color 0.2s, background 0.2s;
 }
 .tab svg { width: 16px; height: 16px; fill: currentColor; }
 .tab:hover { color: var(--text); }
 .tab.active {
-  color: #fff;
+  color: var(--on-accent);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   box-shadow: 0 6px 20px -8px var(--accent);
 }
@@ -298,7 +317,11 @@ main, footer { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
   line-height: 1.08;
 }
 .hero h1 em {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.12em;
+  font-weight: 600;
   font-style: italic;
+  letter-spacing: 0;
   padding-right: 0.12em;
   background: linear-gradient(120deg, var(--accent), var(--accent-2) 60%, var(--gold));
   -webkit-background-clip: text;
@@ -316,6 +339,16 @@ main, footer { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 24px;
+  position: relative;
+}
+/* Marco interior doble, como el borde de una carta de tarot */
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--frame);
+  border-radius: calc(var(--radius) - 5px);
+  pointer-events: none;
 }
 
 /* ---------- Formularios ---------- */
@@ -350,7 +383,7 @@ fieldset {
   border-radius: 16px;
   background: var(--accent-soft);
 }
-legend { padding: 0 8px; font-family: "Fraunces", Georgia, serif; font-weight: 600; color: var(--accent); }
+legend { padding: 0 8px; font-family: "Cinzel", Georgia, serif; font-weight: 600; color: var(--accent); }
 
 button { font: inherit; cursor: pointer; }
 .primary {
@@ -358,7 +391,7 @@ button { font: inherit; cursor: pointer; }
   border: 0;
   border-radius: 12px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   box-shadow: 0 10px 30px -12px var(--accent);
   transition: transform 0.15s, box-shadow 0.2s;
@@ -386,8 +419,8 @@ button { font: inherit; cursor: pointer; }
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
-  color: #fff;
-  font-family: "Fraunces", Georgia, serif;
+  color: var(--on-accent);
+  font-family: "Cinzel", Georgia, serif;
   font-weight: 700;
   font-size: calc(var(--size) * 0.44);
   background:
@@ -395,12 +428,98 @@ button { font: inherit; cursor: pointer; }
     linear-gradient(135deg, var(--accent), var(--accent-2));
   box-shadow: 0 8px 28px -10px var(--accent), inset 0 -4px 12px rgba(0, 0, 0, 0.15);
 }
+/* Números maestros: vino profundo con borde de oro */
 .orb.master {
+  color: var(--gold);
   background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.55), transparent 45%),
-    linear-gradient(135deg, var(--gold), var(--gold-2));
-  box-shadow: 0 8px 28px -8px var(--gold), inset 0 -4px 12px rgba(0, 0, 0, 0.15);
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.25), transparent 45%),
+    linear-gradient(135deg, var(--wine), #2a0c1a);
+  box-shadow: 0 0 0 2px var(--gold), 0 8px 28px -8px var(--gold), inset 0 -4px 12px rgba(0, 0, 0, 0.25);
 }
+
+/* ---------- Cartas de tarot ---------- */
+.tarot {
+  --w: 120px;
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--w);
+  aspect-ratio: 7 / 12;
+  padding: calc(var(--w) * 0.08) calc(var(--w) * 0.06);
+  border: 1px solid var(--accent);
+  border-radius: calc(var(--w) * 0.08);
+  background:
+    radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%),
+    linear-gradient(170deg, var(--card-bg-1), var(--card-bg-2));
+  color: var(--card-ink);
+  box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.6), 0 0 24px -10px var(--accent);
+  text-align: center;
+}
+.tarot::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--w) * 0.045);
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: calc(var(--w) * 0.05);
+  pointer-events: none;
+}
+.tarot .numeral {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: calc(var(--w) * 0.13);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.tarot-center {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(var(--w) * 0.62);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  /* Rayos de sol alrededor del número */
+  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--accent) 18%, transparent) 0deg 4deg, transparent 4deg 15deg);
+}
+.tarot-num {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: calc(var(--w) * 0.3);
+  font-weight: 700;
+  line-height: 1;
+}
+.tarot .glyph {
+  position: absolute;
+  bottom: calc(var(--w) * -0.11);
+  padding: 0 calc(var(--w) * 0.04);
+  background: var(--card-bg-2);
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "Noto Sans Symbols", "Apple Symbols", "DejaVu Sans", sans-serif;
+  font-size: calc(var(--w) * 0.13);
+  line-height: 1.2;
+}
+.tarot-name {
+  width: 100%;
+  padding-top: calc(var(--w) * 0.04);
+  border-top: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  font-family: "Cinzel", Georgia, serif;
+  font-size: calc(var(--w) * 0.085);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+.tarot.master { border-color: var(--gold); box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.6), 0 0 30px -6px var(--gold); }
+.tarot.lg { --w: 176px; }
+.tarot.sm { --w: 64px; }
+.tarot.sm .tarot-name { display: none; }
+.tarot.sm .glyph { display: none; }
+.tarot.sm .tarot-center { width: calc(var(--w) * 0.72); }
+.tarot.sm .tarot-num { font-size: calc(var(--w) * 0.36); }
+.tarot.sm { justify-content: center; gap: calc(var(--w) * 0.08); }
+
+.arcana { margin: 4px 0 0; color: var(--muted); font-style: italic; }
+.arcana strong { color: var(--accent); font-style: normal; }
 .orb.sm { --size: 36px; }
 .orb.xl { --size: 132px; }
 
@@ -409,7 +528,7 @@ button { font: inherit; cursor: pointer; }
 .section-title small {
   display: block;
   margin-top: 2px;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "EB Garamond", Georgia, serif;
   font-size: 0.9rem;
   font-weight: 400;
   color: var(--muted);
@@ -467,7 +586,7 @@ button { font: inherit; cursor: pointer; }
 .card-head { display: flex; gap: 14px; align-items: center; }
 .card-head h3 { margin: 0; font-size: 1.1rem; }
 .label { margin: 0; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-.title { margin: 16px 0 2px; font-family: "Fraunces", Georgia, serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); }
+.title { margin: 16px 0 2px; font-family: "Cinzel", Georgia, serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); }
 .is-master .title { color: var(--gold-2); }
 :root[data-theme="dark"] .is-master .title { color: var(--gold); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .is-master .title { color: var(--gold); } }
@@ -521,9 +640,41 @@ h5 { margin: 14px 0 2px; font-size: 0.8rem; letter-spacing: 0.1em; text-transfor
   padding: 12px 14px;
   border-radius: 12px;
   background: var(--accent-soft);
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
   font-style: italic;
 }
+
+/* Tabla de expresión */
+.careers .card-head { align-items: center; }
+.careers-summary { margin: 4px 0 0; font-size: 1.1rem; }
+.career-areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 12px; }
+.career-area {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--accent-soft);
+}
+.career-area h4 { margin: 0 0 6px; font-size: 0.95rem; color: var(--accent); }
+
+/* Famosos */
+.famous-col h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; }
+.famous-col h3::before { content: "✦"; color: var(--accent); }
+.famous-col .count {
+  margin-left: auto;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2px 16px; margin: 0; padding: 0; list-style: none; }
+.people li { display: grid; padding: 7px 0; border-bottom: 1px solid var(--border); line-height: 1.3; }
+.people .hint { font-size: 0.85rem; }
+
+.section-title::before { content: "✦ "; color: var(--accent); }
 
 .karmic { border-color: color-mix(in srgb, var(--gold) 50%, transparent); }
 .karmic p { margin: 10px 0 0; }
@@ -679,11 +830,11 @@ h5 { margin: 14px 0 2px; font-size: 0.8rem; letter-spacing: 0.1em; text-transfor
 .year-head h2 { margin: 2px 0 0; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.12; }
 .year-head .hint { margin: 0; }
 .year-key { margin: 6px 0 0; color: var(--muted); }
-.year-key strong { color: var(--accent); font-family: "Fraunces", Georgia, serif; font-size: 1.1rem; }
+.year-key strong { color: var(--accent); font-family: "Cinzel", Georgia, serif; font-size: 1.1rem; }
 .year-guides { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .year-guides .guide { margin-top: 12px; }
 .year-sub { margin: 28px 0 12px; font-size: 1.1rem; }
-.year-sub small { font-family: "Inter", system-ui, sans-serif; font-weight: 400; }
+.year-sub small { font-family: "EB Garamond", Georgia, serif; font-weight: 400; }
 
 .cycle-strip { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
 .cycle-step, .month-chip {
@@ -728,6 +879,7 @@ h5 { margin: 14px 0 2px; font-size: 0.8rem; letter-spacing: 0.1em; text-transfor
 .day-nav { display: flex; justify-content: space-between; gap: 8px; margin-top: 16px; }
 
 @media (max-width: 900px) {
+  .career-areas { grid-template-columns: 1fr 1fr; }
   .year-guides { grid-template-columns: 1fr; gap: 0; }
   .month-chips { grid-template-columns: repeat(6, 1fr); }
   .cal-layout { grid-template-columns: 1fr; }
@@ -751,7 +903,7 @@ h5 { margin: 14px 0 2px; font-size: 0.8rem; letter-spacing: 0.1em; text-transfor
   inset: 0;
   display: grid;
   place-items: center;
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Cinzel", Georgia, serif;
   font-size: 2.6rem;
   font-weight: 700;
 }
@@ -833,7 +985,8 @@ footer { padding: 56px 16px 40px; text-align: center; color: var(--muted); font-
 
 @media (max-width: 600px) {
   body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
-  .topbar { padding: 10px 16px; }
+  /* Sin backdrop-filter: si no, la barra de pestañas fija se colocaría dentro de la barra superior */
+  .topbar { padding: 10px 16px; backdrop-filter: none; -webkit-backdrop-filter: none; background: color-mix(in srgb, var(--bg) 94%, transparent); }
   .tabs {
     position: fixed;
     left: 12px;
@@ -869,6 +1022,9 @@ footer { padding: 56px 16px 40px; text-align: center; color: var(--muted); font-
   .day-head h2 { font-size: 1.35rem; }
   .orb.lg { --size: 68px; }
   .featured .chips { justify-content: center; }
+  .tarot.lg { --w: 150px; }
+  .career-areas { grid-template-columns: 1fr; }
+  .careers .card-head { align-items: flex-start; }
   .orb.xl { --size: 112px; }
   .profile { grid-template-columns: 1fr; }
   .compat-row { grid-template-columns: 1fr auto 3.5rem; row-gap: 8px; }

@@ -357,3 +357,119 @@ const YEARLY = {
     cautions: ["No te sacrifiques en exceso", "Evita sentirte responsable de todos", "Pide ayuda tú también"],
   },
 };
+
+// Arcano mayor asociado a cada número (numeración Rider-Waite) y su símbolo astrológico tradicional.
+const ARCANA = {
+  1: { numeral: "I", name: "El Mago", glyph: "☿" },
+  2: { numeral: "II", name: "La Sacerdotisa", glyph: "☽" },
+  3: { numeral: "III", name: "La Emperatriz", glyph: "♀" },
+  4: { numeral: "IV", name: "El Emperador", glyph: "♈" },
+  5: { numeral: "V", name: "El Hierofante", glyph: "♉" },
+  6: { numeral: "VI", name: "Los Enamorados", glyph: "♊" },
+  7: { numeral: "VII", name: "El Carro", glyph: "♋" },
+  8: { numeral: "VIII", name: "La Fuerza", glyph: "♌" },
+  9: { numeral: "IX", name: "El Ermitaño", glyph: "♍" },
+  11: { numeral: "XI", name: "La Justicia", glyph: "♎" },
+  22: { numeral: "0", name: "El Loco", glyph: "✶" },
+  33: { numeral: "VI", name: "Los Enamorados", glyph: "♊", note: "El 33 no tiene arcano propio; se asocia a Los Enamorados (3 + 3 = 6)." },
+};
+
+// Tabla de expresión: campos profesionales según el número de Expresión (total del nombre).
+const CAREERS = {
+  1: {
+    summary: "Liderazgo, iniciativa e independencia. Rindes mejor donde puedes dirigir, innovar o trabajar por tu cuenta.",
+    areas: [
+      ["Negocios y dirección", ["Emprendedor/a", "Gerente", "Dirección de proyectos", "Consultoría independiente"]],
+      ["Innovación y tecnología", ["Ingeniería", "Diseño de producto", "Invención", "Desarrollo de software"]],
+      ["Acción y riesgo", ["Piloto", "Deporte profesional", "Fuerzas armadas", "Ventas"]],
+    ],
+  },
+  2: {
+    summary: "Sensibilidad, tacto y cooperación. Destacas acompañando, mediando y trabajando en equipo.",
+    areas: [
+      ["Cuidado y bienestar", ["Psicología", "Terapia", "Enfermería", "Trabajo social"]],
+      ["Mediación y apoyo", ["Diplomacia", "Recursos humanos", "Asistencia de dirección", "Conciliación"]],
+      ["Arte sensible", ["Música", "Danza", "Fotografía", "Diseño"]],
+    ],
+  },
+  3: {
+    summary: "Expresión, creatividad y carisma. Brillas comunicando, creando y conectando con el público.",
+    areas: [
+      ["Comunicación", ["Periodismo", "Locución", "Publicidad", "Redes sociales"]],
+      ["Arte y espectáculo", ["Actuación", "Música", "Escritura", "Diseño gráfico"]],
+      ["Enseñanza y relaciones", ["Docencia", "Relaciones públicas", "Ventas", "Turismo"]],
+    ],
+  },
+  4: {
+    summary: "Orden, método y constancia. Eres ideal para construir, organizar y trabajar con precisión.",
+    areas: [
+      ["Ingeniería y construcción", ["Ingeniería civil", "Arquitectura", "Construcción", "Mecánica"]],
+      ["Números y gestión", ["Contaduría", "Finanzas", "Administración", "Logística"]],
+      ["Precisión", ["Programación", "Análisis de datos", "Odontología", "Artesanía"]],
+    ],
+  },
+  5: {
+    summary: "Versatilidad, movimiento y curiosidad. Necesitas variedad, viajes y trato con la gente.",
+    areas: [
+      ["Viajes y movimiento", ["Turismo", "Aviación", "Comercio exterior", "Guía"]],
+      ["Comunicación y ventas", ["Marketing", "Ventas", "Periodismo", "Publicidad"]],
+      ["Libertad", ["Emprendimiento", "Trabajo independiente", "Fotografía", "Deportes de aventura"]],
+    ],
+  },
+  6: {
+    summary: "Responsabilidad, servicio y sentido estético. Te realizas cuidando, enseñando y embelleciendo.",
+    areas: [
+      ["Salud y cuidado", ["Medicina", "Enfermería", "Nutrición", "Veterinaria"]],
+      ["Educación y servicio", ["Docencia", "Trabajo social", "Orientación", "Psicología"]],
+      ["Belleza y hogar", ["Diseño de interiores", "Moda", "Estética", "Gastronomía"]],
+    ],
+  },
+  7: {
+    summary: "Análisis, profundidad e intuición. Te va bien donde se investiga, se piensa y se especializa.",
+    areas: [
+      ["Ciencia e investigación", ["Investigación científica", "Medicina", "Química", "Biología"]],
+      ["Tecnología y análisis", ["Ingeniería de sistemas", "Ciencia de datos", "Matemáticas", "Ciberseguridad"]],
+      ["Pensamiento y espíritu", ["Filosofía", "Psicología", "Escritura", "Espiritualidad"]],
+    ],
+  },
+  8: {
+    summary: "Visión, autoridad y capacidad de gestión. Estás hecho para dirigir recursos, empresas y grandes metas.",
+    areas: [
+      ["Negocios y finanzas", ["Dirección de empresas", "Banca", "Inversiones", "Finca raíz"]],
+      ["Ley y poder", ["Derecho", "Política", "Administración pública", "Auditoría"]],
+      ["Gran escala", ["Ingeniería industrial", "Gerencia de proyectos", "Comercio", "Emprendimiento"]],
+    ],
+  },
+  9: {
+    summary: "Compasión, idealismo y visión amplia. Te realizas sirviendo a los demás y a causas mayores.",
+    areas: [
+      ["Servicio humanitario", ["ONG", "Medicina", "Trabajo social", "Cooperación internacional"]],
+      ["Arte y cultura", ["Artes plásticas", "Cine", "Literatura", "Música"]],
+      ["Enseñanza y sanación", ["Docencia", "Terapias", "Psicología", "Derechos humanos"]],
+    ],
+  },
+  11: {
+    summary: "Inspiración, intuición y sensibilidad elevada. Tu campo es guiar, enseñar e inspirar a otros.",
+    areas: [
+      ["Inspiración", ["Docencia", "Conferencias", "Coaching", "Orientación espiritual"]],
+      ["Arte visionario", ["Música", "Artes plásticas", "Cine", "Poesía"]],
+      ["Ayuda", ["Psicología", "Terapias", "Medicina integrativa", "Diplomacia"]],
+    ],
+  },
+  22: {
+    summary: "El Maestro Constructor: une visión y pragmatismo para levantar obras que benefician a muchos.",
+    areas: [
+      ["Grandes obras", ["Arquitectura", "Ingeniería civil", "Urbanismo", "Dirección de megaproyectos"]],
+      ["Organización", ["Política", "Diplomacia", "Organismos internacionales", "Gerencia"]],
+      ["Visión", ["Emprendimiento a gran escala", "Planeación", "Investigación aplicada", "Fundaciones"]],
+    ],
+  },
+  33: {
+    summary: "El Maestro Sanador: tu vocación es sanar, enseñar y servir con amor.",
+    areas: [
+      ["Sanación", ["Medicina", "Terapias", "Enfermería", "Psicología"]],
+      ["Enseñanza", ["Docencia", "Pedagogía", "Orientación", "Formación espiritual"]],
+      ["Servicio", ["Trabajo humanitario", "Arte con mensaje", "ONG", "Cuidado de la infancia"]],
+    ],
+  },
+};

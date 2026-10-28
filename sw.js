@@ -1,8 +1,8 @@
 // Service worker: guarda la app en caché para que funcione sin conexión.
 // Cambia la versión cuando modifiques archivos para forzar la actualización.
-const CACHE = "numerologia-v5";
+const CACHE = "numerologia-v6";
 const FILES = [
-  "./", "index.html", "styles.css", "sky.js", "numerology.js", "meanings.js", "app.js",
+  "./", "index.html", "styles.css", "sky.js", "numerology.js", "meanings.js", "famous.js", "app.js",
   "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png",
 ];
 

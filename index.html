@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0d0b1a">
+  <meta name="theme-color" content="#0b0a14">
   <meta name="description" content="Calcula tu carta numerológica, tu compatibilidad y tus ciclos personales.">
   <title>Numerología</title>
   <script>
@@ -18,7 +18,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -71,7 +71,7 @@
           <span>Fecha de nacimiento</span>
           <input id="birth" type="date" required>
         </label>
-        <button type="submit" class="primary">Revelar mi carta</button>
+        <button type="submit" class="primary">Mi numerología</button>
         <p id="error" class="error" hidden></p>
       </form>
 
@@ -80,6 +80,10 @@
 
         <h2 class="section-title">Números principales</h2>
         <div id="numbers" class="grid"></div>
+
+        <div id="careers"></div>
+
+        <div id="famous"></div>
 
         <div id="karmic"></div>
 
@@ -193,6 +197,7 @@
   <script src="sky.js"></script>
   <script src="numerology.js"></script>
   <script src="meanings.js"></script>
+  <script src="famous.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

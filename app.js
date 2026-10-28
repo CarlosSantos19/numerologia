@@ -82,7 +82,7 @@ function currentTheme() {
 }
 
 function syncThemeColor() {
-  document.querySelector('meta[name="theme-color"]').content = currentTheme() === "dark" ? "#0b0918" : "#f6f3fd";
+  document.querySelector('meta[name="theme-color"]').content = currentTheme() === "dark" ? "#0b0a14" : "#f3ead8";
 }
 
 $("theme-toggle").addEventListener("click", () => {
@@ -208,10 +208,11 @@ function renderFeatured(r) {
   const harmony = scoreLevel(pairScore(v, r.expression.value));
   return `
     <article class="glass featured reveal">
-      <div class="orb-wrap">${orb(v, "xl")}</div>
+      <div class="card-wrap">${tarotCard(v, "lg")}</div>
       <div>
         <p class="label">Tu Camino de Vida</p>
         <h2>${m.title}</h2>
+        <p class="arcana">Arcano mayor: <strong>${ARCANA[v].name}</strong> (${ARCANA[v].numeral})${ARCANA[v].note ? ` · ${ARCANA[v].note}` : ""}</p>
         ${chips(m.keywords)}
         ${karmicBadge(r.lifePath.karmic)}
         <p>${m.general}</p>
@@ -231,15 +232,81 @@ function numberCard(aspect, value, karmic, i) {
   return `
     <article class="glass number-card reveal${value > 9 ? " is-master" : ""}" style="--i:${i}">
       <div class="card-head">
-        ${orb(value)}
+        ${tarotCard(value, "sm")}
         <div><h3>${aspect.label}</h3><p class="hint">${aspect.hint}</p></div>
       </div>
       <p class="title">${m.title}</p>
+      <p class="arcana">Arcano: ${ARCANA[value].name} (${ARCANA[value].numeral})</p>
       ${chips(m.keywords)}
       ${karmicBadge(karmic)}
       <p>${m.general}</p>
       <details><summary>Leer más</summary>${profileDetails(m)}</details>
     </article>`;
+}
+
+// Carta de tarot con el arcano mayor asociado al número.
+function tarotCard(value, size = "") {
+  const a = ARCANA[value];
+  return `
+    <div class="tarot ${size}${value > 9 ? " master" : ""}" aria-hidden="true">
+      <span class="numeral">${a.numeral}</span>
+      <span class="tarot-center">
+        <span class="tarot-num" data-count="${value}">${value}</span>
+        <span class="glyph">${a.glyph}︎</span>
+      </span>
+      <span class="tarot-name">${a.name}</span>
+    </div>`;
+}
+
+function renderCareers(r) {
+  const v = r.expression.value;
+  const c = CAREERS[v];
+  return `
+    <h2 class="section-title">Tabla de expresión <small>El campo en el que te puedes desarrollar, según el total de tu nombre</small></h2>
+    <article class="glass careers reveal">
+      <div class="card-head">
+        ${tarotCard(v, "sm")}
+        <div>
+          <p class="label">Expresión ${v} · ${MEANINGS[v].title}</p>
+          <p class="careers-summary">${c.summary}</p>
+        </div>
+      </div>
+      <div class="career-areas">
+        ${c.areas.map(([area, jobs]) => `
+          <div class="career-area">
+            <h4>${area}</h4>
+            <ul class="chips">${jobs.map((j) => `<li>${j}</li>`).join("")}</ul>
+          </div>`).join("")}
+      </div>
+      <p class="hint">Calculado con todas las letras de tu nombre completo: ${arrow(r.expression.total, v)}.</p>
+    </article>`;
+}
+
+// El Camino de Vida de cada famoso se calcula igual que el del usuario.
+const FAMOUS_LIST = FAMOUS.map(([name, birth, role, country]) => {
+  const [y, m, d] = birth.split("-").map(Number);
+  return { name, birth, role, country, lifePath: lifePath(y, m, d).value };
+});
+
+function renderFamous(r) {
+  const v = r.lifePath.value;
+  const matches = FAMOUS_LIST.filter((p) => p.lifePath === v);
+  const column = (title, country, i) => {
+    const people = matches.filter((p) => p.country === country);
+    return `
+      <article class="glass famous-col reveal" style="--i:${i}">
+        <h3>${title} <span class="count">${people.length}</span></h3>
+        ${people.length
+          ? `<ul class="people">${people.map((p) => `<li><strong>${p.name}</strong><span class="hint">${p.role} · ${formatDate(p.birth)}</span></li>`).join("")}</ul>`
+          : `<p class="hint">Aún no hay famosos registrados con este número.</p>`}
+      </article>`;
+  };
+  return `
+    <h2 class="section-title">Famosos con tu Camino de Vida ${v} <small>Personas conocidas que comparten tu número</small></h2>
+    <div class="grid famous-grid">
+      ${column("Colombia", "co", 0)}
+      ${column("Internacionales", "int", 1)}
+    </div>`;
 }
 
 function renderKarmic(r) {
@@ -318,6 +385,8 @@ function showChart(name, birth) {
   const r = calculate(name, birth);
   $("featured").innerHTML = renderFeatured(r);
   $("numbers").innerHTML = ASPECTS.slice(1).map((a, i) => numberCard(a, r[a.key].value, r[a.key].karmic, i)).join("");
+  $("careers").innerHTML = renderCareers(r);
+  $("famous").innerHTML = renderFamous(r);
   $("karmic").innerHTML = renderKarmic(r);
   $("cycles").innerHTML =
     cycleCard(`Año personal ${r.personalYear.year}`, r.personalYear.value, 0) +
