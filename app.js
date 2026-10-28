@@ -541,13 +541,15 @@ function renderCalendar() {
   for (let d = 1; d <= daysInMonth; d++) {
     const date = new Date(first.getFullYear(), first.getMonth(), d);
     const n = personalCycles(month, day, date).personalDay;
-    const classes = ["day", sameDay(date, today) && "today", sameDay(date, cal.selected) && "selected"].filter(Boolean).join(" ");
+    const classes = ["day", sameDay(date, today) && "today", sameDay(date, cal.selected) && "selected",
+      biorhythm(person.birth, date).critical && "critical"].filter(Boolean).join(" ");
     html += `<button type="button" class="${classes}" data-day="${d}" data-n="${n}" aria-label="${d}: día personal ${n}, ${DAILY[n].title}">
       <span class="d">${d}</span><span class="n">${n}</span></button>`;
   }
   $("cal-grid").innerHTML = html;
   renderYearCard(person);
   renderDayDetail(person);
+  renderBiorhythm(person);
 }
 
 const shortMonth = new Intl.DateTimeFormat("es-ES", { month: "short" });
@@ -655,6 +657,7 @@ function renderDayDetail(person) {
       <p class="day-context">Dentro de tu <strong>mes personal ${c.personalMonth}</strong> (${cycleTheme(c.personalMonth)})
         y tu <strong>año personal ${c.personalYear}</strong> (${cycleTheme(c.personalYear)}).
         Energía colectiva del día: <strong>${u}</strong> · ${MEANINGS[u].keywords}.</p>
+      ${bioSummary(person, date)}
       ${guideSections(guide)}
       <div class="day-nav">
         <button type="button" class="ghost" data-shift="-1">‹ Día anterior</button>
@@ -663,6 +666,115 @@ function renderDayDetail(person) {
     </div>`;
   animateIn($("day-detail"));
 }
+
+// --- Biorritmo ---
+
+const BIO_KEYS = ["physical", "emotional", "intellectual"];
+const signedPercent = (p) => (p > 0 ? `+${p}` : `${p}`) + " %";
+
+function bioState(c) {
+  if (c.critical) return "critico";
+  if (c.percent >= 50) return "alto";
+  if (c.percent >= 0) return "positivo";
+  if (c.percent > -50) return "negativo";
+  return "bajo";
+}
+
+// Resumen de una línea para el detalle del día.
+function bioSummary(person, date) {
+  const b = biorhythm(person.birth, date);
+  return `
+    <p class="bio-mini">
+      <span class="label">Biorritmo</span>
+      ${BIO_KEYS.map((k) => `<span class="bio-chip" style="--c: var(--bio-${k})"><i></i>${BIORHYTHM[k].label} ${signedPercent(b.cycles[k].percent)}</span>`).join("")}
+      ${b.critical ? `<span class="badge">Día crítico</span>` : ""}
+      <a href="#bio-section">Ver gráfica ›</a>
+    </p>`;
+}
+
+function bioChart(person) {
+  // En pantallas estrechas la gráfica es más alta en proporción para que se lea bien.
+  const W = window.innerWidth < 600 ? 380 : 720, H = 230, PX = 24, PY = 22;
+  const first = cal.month;
+  const n = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+  const x = (d) => PX + ((d - 1) / (n - 1)) * (W - 2 * PX); // d: día del mes (admite decimales)
+  const y = (v) => H / 2 - v * (H / 2 - PY);
+  const base = daysLived(person.birth, first);
+
+  const curves = BIO_KEYS.map((k) => {
+    let d = "";
+    for (let t = 0; t <= n - 1; t += 0.25) d += `${t ? "L" : "M"}${x(1 + t).toFixed(1)},${y(bioValue(base + t, BIORHYTHM_CYCLES[k])).toFixed(1)}`;
+    return `<path class="curve" style="--c: var(--bio-${k})" d="${d}"/>`;
+  }).join("");
+
+  const ticks = [1, 5, 10, 15, 20, 25, n].filter((d, i, a) => a.indexOf(d) === i && !(d !== n && n - d < 3))
+    .map((d) => `<text x="${x(d)}" y="${H - 4}" text-anchor="middle">${d}</text>`).join("");
+
+  const today = new Date();
+  const marker = (date, cls) => (date.getFullYear() === first.getFullYear() && date.getMonth() === first.getMonth())
+    ? `<line class="${cls}" x1="${x(date.getDate())}" x2="${x(date.getDate())}" y1="${PY - 8}" y2="${H - PY + 8}"/>` : "";
+
+  const sel = cal.selected.getDate();
+  const selDays = daysLived(person.birth, cal.selected);
+  const dots = BIO_KEYS.map((k) => `<circle class="dot" style="--c: var(--bio-${k})" cx="${x(sel)}" cy="${y(bioValue(selDays, BIORHYTHM_CYCLES[k]))}" r="5"/>`).join("");
+
+  const step = (W - 2 * PX) / (n - 1);
+  const hits = Array.from({ length: n }, (_, i) => `<rect class="hit" data-day="${i + 1}" x="${x(i + 1) - step / 2}" y="0" width="${step}" height="${H}"><title>Día ${i + 1}</title></rect>`).join("");
+
+  return `
+    <svg class="bio-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfica del biorritmo del mes">
+      <line class="grid" x1="${PX}" x2="${W - PX}" y1="${y(1)}" y2="${y(1)}"/>
+      <line class="grid" x1="${PX}" x2="${W - PX}" y1="${y(-1)}" y2="${y(-1)}"/>
+      <line class="axis" x1="${PX}" x2="${W - PX}" y1="${y(0)}" y2="${y(0)}"/>
+      <text x="4" y="${y(1) + 4}">+</text><text x="4" y="${y(-1) + 4}">−</text>
+      ${marker(today, "today-line")}
+      ${marker(cal.selected, "selected-line")}
+      ${curves}
+      ${dots}
+      ${ticks}
+      ${hits}
+    </svg>`;
+}
+
+function renderBiorhythm(person) {
+  const b = biorhythm(person.birth, cal.selected);
+  const meters = BIO_KEYS.map((k) => {
+    const c = b.cycles[k];
+    const p = c.percent;
+    return `
+      <div class="bio-meter" style="--c: var(--bio-${k})">
+        <div class="top">
+          <h3>${BIORHYTHM[k].label}</h3>
+          <span class="pct">${signedPercent(p)} ${c.rising ? "↑" : "↓"}</span>
+        </div>
+        <p class="hint">${BIORHYTHM[k].about}</p>
+        <div class="bio-bar"><span style="left:${p >= 0 ? 50 : 50 + p / 2}%; width:${Math.abs(p) / 2}%"></span></div>
+        ${c.critical ? `<p><span class="badge">Día crítico</span></p>` : ""}
+        <p>${BIORHYTHM[k].states[bioState(c)]}</p>
+      </div>`;
+  }).join("");
+
+  $("biorhythm").innerHTML = `
+    <div class="bio-head">
+      <p class="label">${capitalize(monthTitle.format(cal.month))} · seleccionado: ${cal.selected.getDate()}</p>
+      <p class="hint">${b.days.toLocaleString("es-ES")} días vividos</p>
+    </div>
+    ${bioChart(person)}
+    <div class="bio-legend">
+      ${BIO_KEYS.map((k) => `<span style="--c: var(--bio-${k})"><i></i>${BIORHYTHM[k].label}</span>`).join("")}
+      <span class="legend-line"><i class="dashed"></i>Hoy</span>
+      <span class="hint">Toca la gráfica para elegir un día</span>
+    </div>
+    <h3 class="year-sub">${capitalize(longDate.format(cal.selected))}</h3>
+    <div class="bio-meters">${meters}</div>
+    <p class="hint bio-note">Los días críticos (cuando una curva cruza el cero) se marcan con un punto en el calendario.
+      El biorritmo es una teoría sin respaldo científico: tómalo como entretenimiento.</p>`;
+}
+
+$("biorhythm").addEventListener("click", (e) => {
+  const hit = e.target.closest("[data-day]");
+  if (hit) selectDate(new Date(cal.month.getFullYear(), cal.month.getMonth(), Number(hit.dataset.day)));
+});
 
 $("cal-grid").addEventListener("click", (e) => {
   const btn = e.target.closest("[data-day]");

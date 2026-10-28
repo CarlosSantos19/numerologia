@@ -473,3 +473,40 @@ const CAREERS = {
     ],
   },
 };
+
+// Biorritmo: qué representa cada ciclo y cómo leer su estado del día.
+const BIORHYTHM = {
+  physical: {
+    label: "Físico",
+    about: "Energía, fuerza, resistencia y coordinación.",
+    states: {
+      alto: "Energía a tope: buen día para entrenar, hacer esfuerzos físicos y tareas exigentes.",
+      positivo: "Buena energía física; mantén tu ritmo.",
+      negativo: "Energía más baja: dosifica el esfuerzo y descansa bien.",
+      bajo: "Fase de recarga: evita los sobreesfuerzos y prioriza el descanso.",
+      critico: "Día crítico físico: más tendencia al cansancio y a los descuidos; ve con calma.",
+    },
+  },
+  emotional: {
+    label: "Emocional",
+    about: "Estado de ánimo, sensibilidad y creatividad.",
+    states: {
+      alto: "Ánimo alto y receptivo: ideal para las relaciones, la creatividad y las conversaciones importantes.",
+      positivo: "Buen equilibrio emocional.",
+      negativo: "Más sensibilidad: tómate las cosas con calma y no reacciones en caliente.",
+      bajo: "Ánimo bajo: cuida tu entorno y rodéate de gente que te haga bien.",
+      critico: "Día crítico emocional: emociones inestables; evita discusiones y decisiones afectivas.",
+    },
+  },
+  intellectual: {
+    label: "Intelectual",
+    about: "Concentración, memoria y razonamiento.",
+    states: {
+      alto: "Mente clara: buen día para estudiar, planear y resolver problemas.",
+      positivo: "Buena capacidad de concentración.",
+      negativo: "Concentración más baja: repasa en lugar de aprender cosas nuevas.",
+      bajo: "Mente cansada: evita las decisiones complejas y revisa dos veces lo importante.",
+      critico: "Día crítico intelectual: más distracciones; no firmes ni decidas nada importante.",
+    },
+  },
+};

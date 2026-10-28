@@ -31,6 +31,9 @@
   --wheel-opacity: 0.1;
   --moon: rgba(138, 90, 18, 0.35);
   --radius: 16px;
+  --bio-physical: #d9644a;
+  --bio-emotional: #5b8fd9;
+  --bio-intellectual: #4fae72;
   color-scheme: light;
 }
 
@@ -879,11 +882,69 @@ h5 { margin: 14px 0 2px; font-size: 0.8rem; letter-spacing: 0.1em; text-transfor
 .day-nav { display: flex; justify-content: space-between; gap: 8px; margin-top: 16px; }
 
 @media (max-width: 900px) {
+  .bio-meters { grid-template-columns: 1fr; }
   .career-areas { grid-template-columns: 1fr 1fr; }
   .year-guides { grid-template-columns: 1fr; gap: 0; }
   .month-chips { grid-template-columns: repeat(6, 1fr); }
   .cal-layout { grid-template-columns: 1fr; }
   .day-detail { position: static; scroll-margin-top: 76px; }
+}
+
+/* ---------- Biorritmo ---------- */
+#bio-section { scroll-margin-top: 80px; }
+.bio-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+.bio-head p { margin: 0; }
+.bio-chart { display: block; width: 100%; height: auto; margin-top: 12px; }
+.bio-chart .axis { stroke: var(--frame); stroke-width: 1.5; }
+.bio-chart .grid { stroke: var(--border); stroke-dasharray: 4 5; }
+.bio-chart text { fill: var(--muted); font-family: "EB Garamond", Georgia, serif; font-size: 13px; }
+.bio-chart .curve { fill: none; stroke: var(--c); stroke-width: 2.5; stroke-linecap: round; }
+.bio-chart .dot { fill: var(--c); stroke: var(--bg); stroke-width: 2; }
+.bio-chart .today-line { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.bio-chart .selected-line { stroke: var(--accent); stroke-width: 2; opacity: 0.6; }
+.bio-chart .hit { fill: transparent; cursor: pointer; }
+.bio-chart .hit:hover { fill: var(--accent-soft); }
+
+.bio-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin-top: 6px; font-size: 0.95rem; }
+.bio-legend i, .bio-chip i {
+  display: inline-block;
+  width: 16px;
+  height: 3px;
+  margin-right: 6px;
+  border-radius: 2px;
+  background: var(--c);
+  vertical-align: middle;
+}
+.bio-legend i.dashed { background: repeating-linear-gradient(90deg, var(--accent) 0 3px, transparent 3px 6px); }
+.bio-legend .hint { margin: 0 0 0 auto; }
+
+.bio-meters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bio-meter { padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--accent-soft); }
+.bio-meter .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.bio-meter h3 { margin: 0; font-size: 1.05rem; color: var(--c); }
+.bio-meter .pct { font-family: "Cinzel", Georgia, serif; font-size: 1.4rem; font-weight: 700; color: var(--c); }
+.bio-meter p { margin: 6px 0 0; }
+.bio-bar { position: relative; height: 8px; margin: 10px 0 4px; border-radius: 999px; background: var(--border); }
+.bio-bar::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1.5px; background: var(--muted); }
+.bio-bar span { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--c); }
+.bio-note { margin-top: 14px; }
+
+.bio-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 12px 0 0; font-size: 0.95rem; }
+.bio-mini .label { margin: 0; }
+.bio-chip { white-space: nowrap; }
+.bio-mini a { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+/* Punto en el calendario para los días críticos del biorritmo */
+.day { position: relative; }
+.day.critical::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--low);
 }
 
 /* ---------- Compatibilidad ---------- */
@@ -1031,4 +1092,14 @@ footer { padding: 56px 16px 40px; text-align: center; color: var(--muted); font-
   .compat-row .bar { grid-column: 1 / -1; order: 3; }
   .couple { gap: 10px; }
   .ring { width: 140px; height: 140px; }
+}
+
+.cal-legend { margin: 12px 0 0; text-align: center; font-size: 0.85rem; }
+.crit-dot { display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: var(--low); vertical-align: middle; }
+
+@media (max-width: 900px) {
+  .bio-meters { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .bio-legend .hint { margin-left: 0; }
 }

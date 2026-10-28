@@ -164,3 +164,29 @@ function compatibility(a, b) {
   const total = Math.round(aspects.reduce((acc, x) => acc + x.score * x.weight, 0));
   return { aspects, total, level: scoreLevel(total) };
 }
+
+// --- Biorritmo ---
+// Tres ondas senoidales que empiezan en cero el día del nacimiento.
+const BIORHYTHM_CYCLES = { physical: 23, emotional: 28, intellectual: 33 };
+
+function daysLived(birthDate, date) {
+  const [y, m, d] = birthDate.split("-").map(Number);
+  // En UTC para que los cambios de horario no descuadren la cuenta de días.
+  return Math.round((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(y, m - 1, d)) / 86400000);
+}
+
+function bioValue(days, period) {
+  return Math.sin((2 * Math.PI * days) / period);
+}
+
+function biorhythm(birthDate, date) {
+  const days = daysLived(birthDate, date);
+  const cycles = {};
+  for (const [key, period] of Object.entries(BIORHYTHM_CYCLES)) {
+    const value = bioValue(days, period);
+    // Día crítico: la curva cruza el cero a lo largo de ese día.
+    const critical = Math.sign(bioValue(days - 0.5, period)) !== Math.sign(bioValue(days + 0.5, period));
+    cycles[key] = { value, percent: Math.round(value * 100), critical, rising: bioValue(days + 1, period) > value };
+  }
+  return { days, cycles, critical: Object.values(cycles).some((c) => c.critical) };
+}
